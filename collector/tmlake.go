@@ -218,7 +218,6 @@ func (t *TmLakeRe) reTmLakeMetricAdcInterfaceStatThrputRx(c collector) error {
 	}
 
 	utils.Vardump("result----------------------------000000000000---------------", results)
-	//utils.Vardump("pdu----------------------------222222---------------", oidToPdu)
 
 	// 添加interface name标签
 	adcInterfaceStatIndex := t.LabelValues[0]
