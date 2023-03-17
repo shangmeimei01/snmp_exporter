@@ -23,6 +23,8 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
+const ModuleNameTmlake = "tmlake"
+
 func LoadFile(filename string) (*Config, error) {
 	content, err := os.ReadFile(filename)
 	if err != nil {
@@ -77,6 +79,7 @@ type WalkParams struct {
 
 type Module struct {
 	// A list of OIDs.
+	Name       string
 	Walk       []string   `yaml:"walk,omitempty"`
 	Get        []string   `yaml:"get,omitempty"`
 	Metrics    []*Metric  `yaml:"metrics"`

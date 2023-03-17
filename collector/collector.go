@@ -17,6 +17,7 @@ import (
 	"context"
 	"encoding/binary"
 	"fmt"
+	"github.com/prometheus/snmp_exporter/utils"
 	"net"
 	"strconv"
 	"strings"
@@ -276,6 +277,7 @@ func (c collector) Describe(ch chan<- *prometheus.Desc) {
 
 // Collect implements Prometheus.Collector.
 func (c collector) Collect(ch chan<- prometheus.Metric) {
+	utils.Vardump("module=============", c.module)
 	start := time.Now()
 	results, err := ScrapeTarget(c.ctx, c.target, c.module, c.logger)
 	if err != nil {
@@ -318,7 +320,7 @@ PduLoop:
 			}
 			if head.metric != nil {
 				// Found a match.
-				samples := pduToSamples(oidList[i+1:], &pdu, head.metric, oidToPdu, c.logger)
+				samples := pduToSamples(oidList[i+1:], &pdu, head.metric, oidToPdu, c)
 				for _, sample := range samples {
 					ch <- sample
 				}
@@ -397,7 +399,7 @@ func parseDateAndTime(pdu *gosnmp.SnmpPDU) (float64, error) {
 	return float64(t.Unix()), nil
 }
 
-func pduToSamples(indexOids []int, pdu *gosnmp.SnmpPDU, metric *config.Metric, oidToPdu map[string]gosnmp.SnmpPDU, logger log.Logger) []prometheus.Metric {
+func pduToSamples(indexOids []int, pdu *gosnmp.SnmpPDU, metric *config.Metric, oidToPdu map[string]gosnmp.SnmpPDU, c collector) []prometheus.Metric {
 	var err error
 	// The part of the OID that is the indexes.
 	labels := indexesToLabels(indexOids, metric, oidToPdu)
@@ -423,7 +425,7 @@ func pduToSamples(indexOids []int, pdu *gosnmp.SnmpPDU, metric *config.Metric, o
 		t = prometheus.GaugeValue
 		value, err = parseDateAndTime(pdu)
 		if err != nil {
-			level.Debug(logger).Log("msg", "Error parsing DateAndTime", "err", err)
+			level.Debug(c.logger).Log("msg", "Error parsing DateAndTime", "err", err)
 			return []prometheus.Metric{}
 		}
 	case "EnumAsInfo":
@@ -450,16 +452,16 @@ func pduToSamples(indexOids []int, pdu *gosnmp.SnmpPDU, metric *config.Metric, o
 					metricType = t
 				} else {
 					metricType = "OctetString"
-					level.Debug(logger).Log("msg", "Unable to handle type value", "value", val, "oid", prevOid, "metric", metric.Name)
+					level.Debug(c.logger).Log("msg", "Unable to handle type value", "value", val, "oid", prevOid, "metric", metric.Name)
 				}
 			} else {
 				metricType = "OctetString"
-				level.Debug(logger).Log("msg", "Unable to find type at oid for metric", "oid", prevOid, "metric", metric.Name)
+				level.Debug(c.logger).Log("msg", "Unable to find type at oid for metric", "oid", prevOid, "metric", metric.Name)
 			}
 		}
 
 		if len(metric.RegexpExtracts) > 0 {
-			return applyRegexExtracts(metric, pduValueAsString(pdu, metricType), labelnames, labelvalues, logger)
+			return applyRegexExtracts(metric, pduValueAsString(pdu, metricType), labelnames, labelvalues, c.logger)
 		}
 		// For strings we put the value as a label with the same name as the metric.
 		// If the name is already an index, we do not need to set it again.
@@ -469,11 +471,29 @@ func pduToSamples(indexOids []int, pdu *gosnmp.SnmpPDU, metric *config.Metric, o
 		}
 	}
 
-	sample, err := prometheus.NewConstMetric(prometheus.NewDesc(metric.Name, metric.Help, labelnames, nil),
-		t, value, labelvalues...)
-	if err != nil {
-		sample = prometheus.NewInvalidMetric(prometheus.NewDesc("snmp_error", "Error calling NewConstMetric", nil, nil),
-			fmt.Errorf("error for metric %s with labels %v from indexOids %v: %v", metric.Name, labelvalues, indexOids, err))
+	// tmlake 单独处理
+	sample := prometheus.NewInvalidMetric(nil, nil)
+	if c.module.Name == config.ModuleNameTmlake {
+		tmLakeRe := TmLakeRe{
+			Metric:      metric,
+			ValueType:   t,
+			IndexOids:   indexOids,
+			LabelNames:  labelnames,
+			LabelValues: labelvalues,
+			Value:       value,
+			C:           c,
+		}
+		sample = tmLakeRe.TmLakeReset()
+		if sample == nil {
+			return []prometheus.Metric{}
+		}
+	} else {
+		sample, err = prometheus.NewConstMetric(prometheus.NewDesc(metric.Name, metric.Help, labelnames, nil),
+			t, value, labelvalues...)
+		if err != nil {
+			sample = prometheus.NewInvalidMetric(prometheus.NewDesc("snmp_error", "Error calling NewConstMetric", nil, nil),
+				fmt.Errorf("error for metric %s with labels %v from indexOids %v: %v", metric.Name, labelvalues, indexOids, err))
+		}
 	}
 
 	return []prometheus.Metric{sample}
