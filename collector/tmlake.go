@@ -18,8 +18,8 @@ const (
 	TmLakeMetricAdcLLBAppStatus          = "llb_vserver_alive"
 	TmLakeMetricAdcMonInfoCpuTemp        = "cpu_temperature"
 	TmLakeMetricAdcLLBAppName            = "adcLLBAppName"
-	TmLakeMetricAdcInterfaceStatThrputRx = "adcInterfaceStatThrputRx"
-	TmLakeMetricAdcInterfaceStatThrputTx = "adcInterfaceStatThrputTx"
+	TmLakeMetricAdcInterfaceStatThrputRx = "adcInterfaceStatThrputRx" //接收
+	TmLakeMetricAdcInterfaceStatThrputTx = "adcInterfaceStatThrputTx" //发送
 	TmLakeMetricAdcInterfaceStatName     = "adcInterfaceStatName"
 )
 

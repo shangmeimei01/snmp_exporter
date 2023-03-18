@@ -1,14 +1,330 @@
 # WARNING: This file was auto-generated using snmp_exporter generator, manual changes will be lost.
+YK_ADC_CR:
+  walk:
+    - 1.3.6.1.4.1.3375.2.1.12.2.2.1.4
+    - 1.3.6.1.4.1.3375.2.1.2.4.4.3.1.3
+    - 1.3.6.1.4.1.3375.2.1.2.4.4.3.1.5
+    - 1.3.6.1.4.1.3375.2.1.3.6.2.1.2
+    - 1.3.6.1.4.1.3375.2.1.7.3.2.1
+    - 1.3.6.1.4.1.3375.2.1.7.6.2.1.5
+    - 1.3.6.1.4.1.3375.2.2.10.13.2.1.2
+    - 1.3.6.1.4.1.3375.2.2.10.13.2.1.3
+    - 1.3.6.1.4.1.3375.2.2.4.3.2.1.3
+    - 1.3.6.1.4.1.3375.2.2.4.3.2.1.4
+    - 1.3.6.1.4.1.3375.2.2.5.5.2.1.2
+    - 1.3.6.1.4.1.3375.2.2.5.5.2.1.3
+    - 1.3.6.1.4.1.3375.2.2.5.6.2.1.5
+    - 1.3.6.1.4.1.3375.2.2.5.6.2.1.6
+    - 1.3.6.1.4.1.3375.2.2.6.1.2.3.1.3
+  get:
+    - 1.3.6.1.4.1.3375.2.1.1.2.1.14.0
+    - 1.3.6.1.4.1.3375.2.1.1.2.1.15.0
+    - 1.3.6.1.4.1.3375.2.1.1.2.1.56.0
+    - 1.3.6.1.4.1.3375.2.1.1.2.1.60.0
+    - 1.3.6.1.4.1.3375.2.1.1.2.1.62.0
+    - 1.3.6.1.4.1.3375.2.1.1.2.1.67.0
+    - 1.3.6.1.4.1.3375.2.1.1.2.1.69.0
+    - 1.3.6.1.4.1.3375.2.1.1.2.1.7.0
+    - 1.3.6.1.4.1.3375.2.1.1.2.1.8.0
+    - 1.3.6.1.4.1.3375.2.1.1.2.20.13.0
+    - 1.3.6.1.4.1.3375.2.1.1.2.20.21.0
+    - 1.3.6.1.4.1.3375.2.1.1.2.21.9.0
+    - 1.3.6.1.4.1.3375.2.1.7.1.1.0
+    - 1.3.6.1.4.1.3375.2.1.7.1.2.0
+  metrics:
+    - name: sysStatServerTotConns
+      oid: 1.3.6.1.4.1.3375.2.1.1.2.1.14
+      type: counter
+      help: The total connections from server-side to the system. - 1.3.6.1.4.1.3375.2.1.1.2.1.14
+    - name: sysStatServerCurConns
+      oid: 1.3.6.1.4.1.3375.2.1.1.2.1.15
+      type: gauge
+      help: The current connections from server-side to the system. - 1.3.6.1.4.1.3375.2.1.1.2.1.15
+    - name: sysStatHttpRequests
+      oid: 1.3.6.1.4.1.3375.2.1.1.2.1.56
+      type: counter
+      help: The total number of HTTP requests to the system. - 1.3.6.1.4.1.3375.2.1.1.2.1.56
+    - name: sysStatClientBytesIn5s
+      oid: 1.3.6.1.4.1.3375.2.1.1.2.1.60
+      type: gauge
+      help: The average number of bytes received by the system from client-side in the
+        last five seconds. - 1.3.6.1.4.1.3375.2.1.1.2.1.60
+    - name: sysStatClientBytesOut5s
+      oid: 1.3.6.1.4.1.3375.2.1.1.2.1.62
+      type: gauge
+      help: The average number of bytes sent to client-side from the system in the last
+        five seconds. - 1.3.6.1.4.1.3375.2.1.1.2.1.62
+    - name: sysStatServerBytesIn5s
+      oid: 1.3.6.1.4.1.3375.2.1.1.2.1.67
+      type: gauge
+      help: The average number of bytes received by the system from server-side in the
+        last five seconds. - 1.3.6.1.4.1.3375.2.1.1.2.1.67
+    - name: sysStatServerBytesOut5s
+      oid: 1.3.6.1.4.1.3375.2.1.1.2.1.69
+      type: gauge
+      help: The average number of bytes sent to server-side from the system in the last
+        five seconds. - 1.3.6.1.4.1.3375.2.1.1.2.1.69
+    - name: sysStatClientTotConns
+      oid: 1.3.6.1.4.1.3375.2.1.1.2.1.7
+      type: counter
+      help: The total connections from client-side to the system. - 1.3.6.1.4.1.3375.2.1.1.2.1.7
+    - name: sysStatClientCurConns
+      oid: 1.3.6.1.4.1.3375.2.1.1.2.1.8
+      type: gauge
+      help: The current connections from client-side to the system. - 1.3.6.1.4.1.3375.2.1.1.2.1.8
+    - name: sysGlobalHostCpuUsageRatio
+      oid: 1.3.6.1.4.1.3375.2.1.1.2.20.13
+      type: gauge
+      help: This is usage ratio of CPU for the system - 1.3.6.1.4.1.3375.2.1.1.2.20.13
+    - name: sysGlobalHostCpuUsageRatio5s
+      oid: 1.3.6.1.4.1.3375.2.1.1.2.20.21
+      type: gauge
+      help: This is average usage ratio of CPU for the system in the last five seconds
+        - 1.3.6.1.4.1.3375.2.1.1.2.20.21
+    - name: sysGlobalTmmStatClientCurConns
+      oid: 1.3.6.1.4.1.3375.2.1.1.2.21.9
+      type: gauge
+      help: The current connections from client-side to the system. - 1.3.6.1.4.1.3375.2.1.1.2.21.9
+    - name: sysPlaneStatCpuRatio5sec
+      oid: 1.3.6.1.4.1.3375.2.1.12.2.2.1.4
+      type: gauge
+      help: Last 5 sec average plane CPU usage (percentage) - 1.3.6.1.4.1.3375.2.1.12.2.2.1.4
+      indexes:
+        - labelname: sysPlaneStatPlaneName
+          type: DisplayString
+    - name: sysInterfaceStatBytesIn
+      oid: 1.3.6.1.4.1.3375.2.1.2.4.4.3.1.3
+      type: counter
+      help: The number of bytes received on the specified interface. - 1.3.6.1.4.1.3375.2.1.2.4.4.3.1.3
+      indexes:
+        - labelname: sysInterfaceStatName
+          type: DisplayString
+    - name: sysInterfaceStatBytesOut
+      oid: 1.3.6.1.4.1.3375.2.1.2.4.4.3.1.5
+      type: counter
+      help: The number of bytes transmitted out of the specified interface. - 1.3.6.1.4.1.3375.2.1.2.4.4.3.1.5
+      indexes:
+        - labelname: sysInterfaceStatName
+          type: DisplayString
+    - name: sysCpuSensorTemperature
+      oid: 1.3.6.1.4.1.3375.2.1.3.6.2.1.2
+      type: gauge
+      help: The temperature of the indexed CPU on the system - 1.3.6.1.4.1.3375.2.1.3.6.2.1.2
+      indexes:
+        - labelname: sysCpuSensorSlot
+          type: gauge
+        - labelname: sysCpuSensorIndex
+          type: gauge
+    - name: sysHostMemoryTotal
+      oid: 1.3.6.1.4.1.3375.2.1.7.1.1
+      type: counter
+      help: The total host memory in bytes - 1.3.6.1.4.1.3375.2.1.7.1.1
+    - name: sysHostMemoryUsed
+      oid: 1.3.6.1.4.1.3375.2.1.7.1.2
+      type: counter
+      help: The host memory in bytes currently in use - 1.3.6.1.4.1.3375.2.1.7.1.2
+    - name: sysHostDiskPartition
+      oid: 1.3.6.1.4.1.3375.2.1.7.3.2.1.1
+      type: DisplayString
+      help: The name of a disk partition. - 1.3.6.1.4.1.3375.2.1.7.3.2.1.1
+      indexes:
+        - labelname: sysHostDiskPartition
+          type: DisplayString
+    - name: sysHostDiskBlockSize
+      oid: 1.3.6.1.4.1.3375.2.1.7.3.2.1.2
+      type: gauge
+      help: The number of bytes in the specified partition. - 1.3.6.1.4.1.3375.2.1.7.3.2.1.2
+      indexes:
+        - labelname: sysHostDiskPartition
+          type: DisplayString
+    - name: sysHostDiskTotalBlocks
+      oid: 1.3.6.1.4.1.3375.2.1.7.3.2.1.3
+      type: gauge
+      help: The number of total blocks in the specified partition. - 1.3.6.1.4.1.3375.2.1.7.3.2.1.3
+      indexes:
+        - labelname: sysHostDiskPartition
+          type: DisplayString
+    - name: sysHostDiskFreeBlocks
+      oid: 1.3.6.1.4.1.3375.2.1.7.3.2.1.4
+      type: gauge
+      help: The number of free blocks in the specified partition. - 1.3.6.1.4.1.3375.2.1.7.3.2.1.4
+      indexes:
+        - labelname: sysHostDiskPartition
+          type: DisplayString
+    - name: sysHostDiskTotalNodes
+      oid: 1.3.6.1.4.1.3375.2.1.7.3.2.1.5
+      type: gauge
+      help: The number of total file nodes in the specified partition. - 1.3.6.1.4.1.3375.2.1.7.3.2.1.5
+      indexes:
+        - labelname: sysHostDiskPartition
+          type: DisplayString
+    - name: sysHostDiskFreeNodes
+      oid: 1.3.6.1.4.1.3375.2.1.7.3.2.1.6
+      type: gauge
+      help: The number of free file nodes in the specified partition. - 1.3.6.1.4.1.3375.2.1.7.3.2.1.6
+      indexes:
+        - labelname: sysHostDiskPartition
+          type: DisplayString
+    - name: sysLogicalDiskSize
+      oid: 1.3.6.1.4.1.3375.2.1.7.6.2.1.5
+      type: gauge
+      help: The size of logical disk - 1.3.6.1.4.1.3375.2.1.7.6.2.1.5
+      indexes:
+        - labelname: sysLogicalDiskSlotId
+          type: gauge
+        - labelname: sysLogicalDiskName
+          type: DisplayString
+    - name: ltmVsStatusAvailState
+      oid: 1.3.6.1.4.1.3375.2.2.10.13.2.1.2
+      type: gauge
+      help: The availability of the specified virtual server indicated in color - 1.3.6.1.4.1.3375.2.2.10.13.2.1.2
+      indexes:
+        - labelname: ltmVsStatusName
+          type: DisplayString
+      enum_values:
+        0: none
+        1: green
+        2: yellow
+        3: red
+        4: blue
+        5: gray
+    - name: ltmVsStatusEnabledState
+      oid: 1.3.6.1.4.1.3375.2.2.10.13.2.1.3
+      type: gauge
+      help: The activity status of the specified virtual server, as specified by the
+        user. - 1.3.6.1.4.1.3375.2.2.10.13.2.1.3
+      indexes:
+        - labelname: ltmVsStatusName
+          type: DisplayString
+      enum_values:
+        0: none
+        1: enabled
+        2: disabled
+        3: disabledbyparent
+    - name: ltmNodeAddrStatusAvailState
+      oid: 1.3.6.1.4.1.3375.2.2.4.3.2.1.3
+      type: gauge
+      help: The availability of the specified node address indicated in color - 1.3.6.1.4.1.3375.2.2.4.3.2.1.3
+      indexes:
+        - labelname: ltmNodeAddrStatusName
+          type: DisplayString
+      enum_values:
+        0: none
+        1: green
+        2: yellow
+        3: red
+        4: blue
+        5: gray
+    - name: ltmNodeAddrStatusEnabledState
+      oid: 1.3.6.1.4.1.3375.2.2.4.3.2.1.4
+      type: gauge
+      help: The activity status of the specified node address, as specified by the user.
+        - 1.3.6.1.4.1.3375.2.2.4.3.2.1.4
+      indexes:
+        - labelname: ltmNodeAddrStatusName
+          type: DisplayString
+      enum_values:
+        0: none
+        1: enabled
+        2: disabled
+        3: disabledbyparent
+    - name: ltmPoolStatusAvailState
+      oid: 1.3.6.1.4.1.3375.2.2.5.5.2.1.2
+      type: gauge
+      help: The availability of the specified pool indicated in color - 1.3.6.1.4.1.3375.2.2.5.5.2.1.2
+      indexes:
+        - labelname: ltmPoolStatusName
+          type: DisplayString
+      enum_values:
+        0: none
+        1: green
+        2: yellow
+        3: red
+        4: blue
+        5: grey
+    - name: ltmPoolStatusEnabledState
+      oid: 1.3.6.1.4.1.3375.2.2.5.5.2.1.3
+      type: gauge
+      help: The activity status of the specified pool, as specified by the user. - 1.3.6.1.4.1.3375.2.2.5.5.2.1.3
+      indexes:
+        - labelname: ltmPoolStatusName
+          type: DisplayString
+      enum_values:
+        0: none
+        1: enabled
+        2: disabled
+        3: disabledbyparent
+    - name: ltmPoolMbrStatusAvailState
+      oid: 1.3.6.1.4.1.3375.2.2.5.6.2.1.5
+      type: gauge
+      help: The availability of the specified pool member indicated in color - 1.3.6.1.4.1.3375.2.2.5.6.2.1.5
+      indexes:
+        - labelname: ltmPoolMbrStatusPoolName
+          type: DisplayString
+        - labelname: ltmPoolMbrStatusNodeName
+          type: DisplayString
+        - labelname: ltmPoolMbrStatusPort
+          type: gauge
+      enum_values:
+        0: none
+        1: green
+        2: yellow
+        3: red
+        4: blue
+        5: gray
+    - name: ltmPoolMbrStatusEnabledState
+      oid: 1.3.6.1.4.1.3375.2.2.5.6.2.1.6
+      type: gauge
+      help: The activity status of the specified pool member, as specified by the user.
+        - 1.3.6.1.4.1.3375.2.2.5.6.2.1.6
+      indexes:
+        - labelname: ltmPoolMbrStatusPoolName
+          type: DisplayString
+        - labelname: ltmPoolMbrStatusNodeName
+          type: DisplayString
+        - labelname: ltmPoolMbrStatusPort
+          type: gauge
+      enum_values:
+        0: none
+        1: enabled
+        2: disabled
+        3: disabledbyparent
+    - name: ltmAuthProfileStatCurSessions
+      oid: 1.3.6.1.4.1.3375.2.2.6.1.2.3.1.3
+      type: gauge
+      help: The current number of concurrent auth sessions for the specified profile.
+        - 1.3.6.1.4.1.3375.2.2.6.1.2.3.1.3
+      indexes:
+        - labelname: ltmAuthProfileStatName
+          type: DisplayString
 tmlake:
   walk:
     - 1.3.6.1.4.1.99999.1.1.12.2.1.2
     - 1.3.6.1.4.1.99999.1.1.13.2.1.6
     - 1.3.6.1.4.1.99999.1.1.14.2.1.2
     - 1.3.6.1.4.1.99999.1.2.2.2.1.10
+    - 1.3.6.1.4.1.99999.1.2.2.2.1.2
     - 1.3.6.1.4.1.99999.1.2.2.2.1.9
+    - 1.3.6.1.4.1.99999.1.4.1.2.1.8
+    - 1.3.6.1.4.1.99999.1.4.2.2.1.2
+    - 1.3.6.1.4.1.99999.1.4.2.2.1.3
+    - 1.3.6.1.4.1.99999.1.4.2.2.1.4
+    - 1.3.6.1.4.1.99999.1.4.2.2.1.5
+    - 1.3.6.1.4.1.99999.1.4.2.2.1.6
+    - 1.3.6.1.4.1.99999.1.4.3.2.1.2
+    - 1.3.6.1.4.1.99999.1.4.4.2.1.3
+    - 1.3.6.1.4.1.99999.1.4.4.2.1.4
+    - 1.3.6.1.4.1.99999.1.4.4.2.1.6
+    - 1.3.6.1.4.1.99999.1.4.4.2.1.7
+    - 1.3.6.1.4.1.99999.1.4.5.2.1.2
+    - 1.3.6.1.4.1.99999.1.4.5.2.1.3
+    - 1.3.6.1.4.1.99999.1.4.6.2.1.2
+    - 1.3.6.1.4.1.99999.1.4.6.2.1.4
+    - 1.3.6.1.4.1.99999.1.4.6.2.1.5
+    - 1.3.6.1.4.1.99999.1.4.6.2.1.7
+    - 1.3.6.1.4.1.99999.1.4.6.2.1.8
     - 1.3.6.1.4.1.99999.1.6.1.2.1.10
     - 1.3.6.1.4.1.99999.1.6.1.2.1.2
-
   get:
     - 1.3.6.1.4.1.99999.1.1.15.2.0
   metrics:
@@ -59,12 +375,131 @@ tmlake:
       indexes:
         - labelname: adcInterfaceStatIndex
           type: gauge
-    - name: adcLLBAppName
-      oid: 1.3.6.1.4.1.99999.1.6.1.2.1.2
+    - name: adcSLBAppPoolName
+      oid: 1.3.6.1.4.1.99999.1.4.1.2.1.8
       type: OctetString
-      help: The name of llb app. - 1.3.6.1.4.1.99999.1.6.1.2.1.2
+      help: The pool name of app - 1.3.6.1.4.1.99999.1.4.1.2.1.8
       indexes:
-        - labelname: adcLLBAppIndex
+        - labelname: adcSLBAppIndex
+          type: gauge
+    - name: adcSLBAppStatName
+      oid: 1.3.6.1.4.1.99999.1.4.2.2.1.2
+      type: OctetString
+      help: SLB Virtual Server name - 1.3.6.1.4.1.99999.1.4.2.2.1.2
+      indexes:
+        - labelname: adcSLBAppStatIndex
+          type: gauge
+    - name: adcSLBAppStatConnEstab
+      oid: 1.3.6.1.4.1.99999.1.4.2.2.1.3
+      type: counter
+      help: the total number of connections in established state - 1.3.6.1.4.1.99999.1.4.2.2.1.3
+      indexes:
+        - labelname: adcSLBAppStatIndex
+          type: gauge
+    - name: adcSLBAppStatNewConnection
+      oid: 1.3.6.1.4.1.99999.1.4.2.2.1.4
+      type: counter
+      help: the number of new connections per second - 1.3.6.1.4.1.99999.1.4.2.2.1.4
+      indexes:
+        - labelname: adcSLBAppStatIndex
+          type: gauge
+    - name: adcSLBAppStatHttpReq
+      oid: 1.3.6.1.4.1.99999.1.4.2.2.1.5
+      type: counter
+      help: the total number of HTTP requests per second - 1.3.6.1.4.1.99999.1.4.2.2.1.5
+      indexes:
+        - labelname: adcSLBAppStatIndex
+          type: gauge
+    - name: adcSLBAppStatClientSideTraffic
+      oid: 1.3.6.1.4.1.99999.1.4.2.2.1.6
+      type: counter
+      help: the total traffic of client side in bps - 1.3.6.1.4.1.99999.1.4.2.2.1.6
+      indexes:
+        - labelname: adcSLBAppStatIndex
+          type: gauge
+    - name: adcSLBPoolName
+      oid: 1.3.6.1.4.1.99999.1.4.3.2.1.2
+      type: OctetString
+      help: The name of pool. - 1.3.6.1.4.1.99999.1.4.3.2.1.2
+      indexes:
+        - labelname: adcSLBPoolIndex
+          type: gauge
+    - name: adcSLBPoolStatConnEstab
+      oid: 1.3.6.1.4.1.99999.1.4.4.2.1.3
+      type: counter
+      help: The number of established connections of pool. - 1.3.6.1.4.1.99999.1.4.4.2.1.3
+      indexes:
+        - labelname: adcSLBPoolStatIndex
+          type: gauge
+    - name: adcSLBPoolStatNewConnection
+      oid: 1.3.6.1.4.1.99999.1.4.4.2.1.4
+      type: counter
+      help: The number of new connections per second of pool. - 1.3.6.1.4.1.99999.1.4.4.2.1.4
+      indexes:
+        - labelname: adcSLBPoolStatIndex
+          type: gauge
+    - name: adcSLBPoolStatServerSideTraffic
+      oid: 1.3.6.1.4.1.99999.1.4.4.2.1.6
+      type: counter
+      help: The traffic in server side of pool. - 1.3.6.1.4.1.99999.1.4.4.2.1.6
+      indexes:
+        - labelname: adcSLBPoolStatIndex
+          type: gauge
+    - name: adcSLBPoolStatHttpRequest
+      oid: 1.3.6.1.4.1.99999.1.4.4.2.1.7
+      type: counter
+      help: The number of http request of pool. - 1.3.6.1.4.1.99999.1.4.4.2.1.7
+      indexes:
+        - labelname: adcSLBPoolStatIndex
+          type: gauge
+    - name: adcSLBPoolMemberPoolName
+      oid: 1.3.6.1.4.1.99999.1.4.5.2.1.2
+      type: OctetString
+      help: The pool name of member - 1.3.6.1.4.1.99999.1.4.5.2.1.2
+      indexes:
+        - labelname: adcSLBPoolMemberIndex
+          type: gauge
+    - name: adcSLBPoolMemberAddress
+      oid: 1.3.6.1.4.1.99999.1.4.5.2.1.3
+      type: OctetString
+      help: The address of member - 1.3.6.1.4.1.99999.1.4.5.2.1.3
+      indexes:
+        - labelname: adcSLBPoolMemberIndex
+          type: gauge
+    - name: adcSLBPoolMemberStatPoolName
+      oid: 1.3.6.1.4.1.99999.1.4.6.2.1.2
+      type: OctetString
+      help: The pool name of member - 1.3.6.1.4.1.99999.1.4.6.2.1.2
+      indexes:
+        - labelname: adcSLBPoolMemberStatIndex
+          type: gauge
+    - name: adcSLBPoolMemberStatConnEstab
+      oid: 1.3.6.1.4.1.99999.1.4.6.2.1.4
+      type: counter
+      help: The number of established connections. - 1.3.6.1.4.1.99999.1.4.6.2.1.4
+      indexes:
+        - labelname: adcSLBPoolMemberStatIndex
+          type: gauge
+    - name: adcSLBPoolMemberStatNewConnection
+      oid: 1.3.6.1.4.1.99999.1.4.6.2.1.5
+      type: counter
+      help: The new connections per second of member. - 1.3.6.1.4.1.99999.1.4.6.2.1.5
+      indexes:
+        - labelname: adcSLBPoolMemberStatIndex
+          type: gauge
+    - name: adcSLBPoolMemberStatServerSideTraffic
+      oid: 1.3.6.1.4.1.99999.1.4.6.2.1.7
+      type: counter
+      help: The server side traffic of member. - 1.3.6.1.4.1.99999.1.4.6.2.1.7
+      indexes:
+        - labelname: adcSLBPoolMemberStatIndex
+          type: gauge
+    - name: adcSLBPoolMemberStatHttpRequest
+      oid: 1.3.6.1.4.1.99999.1.4.6.2.1.8
+      type: counter
+      help: The http request count. - 1.3.6.1.4.1.99999.1.4.6.2.1.8
+      indexes:
+        - labelname: adcSLBPoolMemberStatIndex
           type: gauge
     - name: llb_vserver_alive
       oid: 1.3.6.1.4.1.99999.1.6.1.2.1.10
@@ -76,6 +511,12 @@ tmlake:
       enum_values:
         0: down
         1: up
-
+    - name: adcLLBAppName
+      oid: 1.3.6.1.4.1.99999.1.6.1.2.1.2
+      type: OctetString
+      help: The name of llb app. - 1.3.6.1.4.1.99999.1.6.1.2.1.2
+      indexes:
+        - labelname: adcLLBAppIndex
+          type: gauge
   auth:
     community: cc-read

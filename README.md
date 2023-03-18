@@ -74,6 +74,14 @@ in `snmp.yml`.
 
 ## Configuration
 
+!!!所生成 snmp.yml 不可直接覆盖， 有所更改 更改内容如下：
+tmlake:
+1.cpu AdcCpuinfoUsr =>cpu_usage
+2.磁盘 AdcDiskinfoDesc => filesystem_usage
+3.内存 adcMeminfoUsedPercent => memory_usage
+4.链路 adcLLBAppStatus =>  llb_vserver_alive
+5.温度 adcMonInfoCpuTemp => cpu_temperature
+
 The default configuration file name is `snmp.yml` and should not be edited
 by hand. If you need to change it, see
 [Generating configuration](#generating-configuration).
