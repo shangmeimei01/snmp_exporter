@@ -2,6 +2,7 @@ package collector
 
 import (
 	"fmt"
+	"github.com/gosnmp/gosnmp"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/snmp_exporter/config"
 	"github.com/prometheus/snmp_exporter/utils"
@@ -20,6 +21,11 @@ const (
 	TmLakeMetricAdcInterfaceStatThrputRx = "adcInterfaceStatThrputRx"
 	TmLakeMetricAdcInterfaceStatThrputTx = "adcInterfaceStatThrputTx"
 	TmLakeMetricAdcInterfaceStatName     = "adcInterfaceStatName"
+)
+
+const (
+	InterfaceStatNameOid = "1.3.6.1.4.1.99999.1.2.2.2.1.2"
+	AdcLLBAppNameOid     = "1.3.6.1.4.1.99999.1.6.1.2.1.2"
 )
 
 type TmLakeRe struct {
@@ -50,11 +56,12 @@ func (t *TmLakeRe) TmLakeReset() prometheus.Metric {
 		err = t.reTmLakeMetricAdcMonInfoCpuTemp()
 
 	case TmLakeMetricAdcInterfaceStatThrputRx:
-		err = t.reTmLakeMetricAdcInterfaceStatThrputRx(t.C)
+		err = t.reTmLakeMetricAdcInterfaceStatThrput(t.C)
 	case TmLakeMetricAdcInterfaceStatThrputTx:
+		err = t.reTmLakeMetricAdcInterfaceStatThrput(t.C)
 
-		//case TmLakeMetricAdcLLBAppStatus:
-		//	err = t.reTmLakeMetricAdcLLBAppStatus(t.C)
+	case TmLakeMetricAdcLLBAppStatus:
+		err = t.reTmLakeMetricAdcLLBAppStatus(t.C)
 
 	}
 	if err != nil {
@@ -172,26 +179,74 @@ func (t *TmLakeRe) reTmLakeMetricAdcMonInfoCpuTemp() error {
 	return nil
 }
 
-func (t *TmLakeRe) reTmLakeMetricAdcInterfaceStatThrputRx(c collector) error {
-	// todo:: 链路优先级置后
-	utils.Vardump("======= metric =========", t.Metric)
-	utils.Vardump("======= labelNames =========", t.LabelNames)
-	utils.Vardump("======= labelValues =========", t.LabelValues)
+// 吞吐量逻辑相同
+func (t *TmLakeRe) reTmLakeMetricAdcInterfaceStatThrput(c collector) error {
 	if len(t.LabelValues) < 1 {
-		return fmt.Errorf("reTmLakeMetricAdcInterfaceStatThrputRxt labelValues len err")
+		return fmt.Errorf("reTmLakeMetricAdcInterfaceStatThrput labelValues len err")
 	}
 	// 请求 接口名称
-	module := &config.Module{
+	module := NewTmLakeModule(c, InterfaceStatNameOid, TmLakeMetricAdcInterfaceStatName)
+	results, err := ScrapeTarget(c.ctx, c.target, module, c.logger)
+	if err != nil {
+		return fmt.Errorf("reTmLakeMetricAdcInterfaceStatThrput get  TmLakeMetricAdcInterfaceStatName err")
+	}
+	indexMap := indexMap(results.pdus)
+
+	// 添加interface name标签
+	adcInterfaceStatIndex := t.LabelValues[0]
+	t.LabelNames = append(t.LabelNames, "interface_name")
+	t.LabelValues = append(t.LabelValues, indexMap[adcInterfaceStatIndex])
+
+	return nil
+}
+
+func (t *TmLakeRe) reTmLakeMetricAdcLLBAppStatus(c collector) error {
+	if len(t.LabelValues) < 1 {
+		return fmt.Errorf("reTmLakeMetricAdcLLBAppStatus labelValues len err")
+	}
+	// 请求 接口名称
+	module := NewTmLakeModule(c, AdcLLBAppNameOid, TmLakeMetricAdcLLBAppName)
+	results, err := ScrapeTarget(c.ctx, c.target, module, c.logger)
+	if err != nil {
+		return fmt.Errorf("reTmLakeMetricAdcLLBAppStatus get  TmLakeMetricAdcInterfaceStatName err")
+	}
+
+	indexMap := indexMap(results.pdus)
+
+	// 添加interface name标签
+	adcInterfaceStatIndex := t.LabelValues[0]
+	t.LabelNames = append(t.LabelNames, "vserver_name")
+	t.LabelValues = append(t.LabelValues, indexMap[adcInterfaceStatIndex])
+
+	return nil
+}
+
+func indexMap(pdus []gosnmp.SnmpPDU) map[string]string {
+	indexMap := make(map[string]string, len(pdus))
+	for _, pdu := range pdus {
+		index := 0
+		if len(pdu.Name) > 0 {
+			index = len(pdu.Name) - 1
+		}
+		value := string(pdu.Value.([]uint8))
+		indexMap[pdu.Name[index:]] = value
+	}
+
+	return indexMap
+}
+
+func NewTmLakeModule(c collector, oid, name string) *config.Module {
+	return &config.Module{
 		Name: moduleNameTmLake,
-		Walk: []string{"1.3.6.1.4.1.99999.1.2.2.2.1.2"},
+		Walk: []string{oid},
 		Get:  nil,
 		Metrics: []*config.Metric{&config.Metric{
-			Name: TmLakeMetricAdcInterfaceStatName,
-			Oid:  "1.3.6.1.4.1.99999.1.2.2.2.1.2",
+			Name: name,
+			Oid:  oid,
 			Type: "OctetString",
 			Help: "",
 			Indexes: []*config.Index{&config.Index{
-				Labelname:  TmLakeMetricAdcInterfaceStatName,
+				Labelname:  name,
 				Type:       "gauge",
 				FixedSize:  0,
 				Implied:    false,
@@ -203,26 +258,4 @@ func (t *TmLakeRe) reTmLakeMetricAdcInterfaceStatThrputRx(c collector) error {
 		}},
 		WalkParams: c.module.WalkParams,
 	}
-	results, err := ScrapeTarget(c.ctx, c.target, module, c.logger)
-	if err != nil {
-		return fmt.Errorf("reTmLakeMetricAdcInterfaceStatThrputRx get  TmLakeMetricAdcInterfaceStatName err")
-	}
-	indexMap := make(map[string]string, len(results.pdus))
-	for _, pdu := range results.pdus {
-		index := 0
-		if len(pdu.Name) > 0 {
-			index = len(pdu.Name) - 1
-		}
-		value := string(pdu.Value.([]uint8))
-		indexMap[pdu.Name[index:]] = value
-	}
-
-	utils.Vardump("result----------------------------000000000000---------------", results)
-
-	// 添加interface name标签
-	adcInterfaceStatIndex := t.LabelValues[0]
-	t.LabelNames = append(t.LabelNames, "interface_name")
-	t.LabelValues = append(t.LabelValues, indexMap[adcInterfaceStatIndex])
-
-	return nil
 }
