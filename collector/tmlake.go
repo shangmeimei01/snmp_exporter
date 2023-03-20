@@ -163,7 +163,8 @@ func (t *TmLakeRe) reTmLakeMetricAdcCpuInfoUsr() error {
 	// 更改值 取标签中的adcCpuInfoUsr 作为值 并转化成十进制
 	s := utils.Hex2String(t.LabelValues[1])
 	t.Value, _ = strconv.ParseFloat(s, 64)
-	t.LabelValues[1] = s
+	t.LabelValues = t.LabelValues[0:1]
+	t.LabelNames = t.LabelNames[0:1]
 	return nil
 }
 
